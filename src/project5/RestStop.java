@@ -54,6 +54,8 @@ public class RestStop implements Comparable<RestStop> {
 	 * @param label label for the node in the binary search tree
 	 */
 	private void validateLabel(String label) {
+		//If label is null 
+		//or doesn't contain strictly alphanumeric characters
 		if(label == null || !label.matches("\\w")) {
 			System.err.println("Label must comprise of"
 					+ " alphanumeric characters.");
