@@ -5,34 +5,28 @@ package project5;
  * It stores the label of the rest stop along with
  * a list of supplies a hiker can collect and 
  * a list of obstacles a hiker may encounter at this rest stop.
- * @author Max
+ * @author Max Hahn
  */
 public class RestStop implements Comparable<RestStop> {
-	//any alphanumeric characters are valid
+	//Note that only alphanumeric characters are valid
 	private String label;
 	private int food, rafts, axes, rivers, fallenTrees;
 	
-	//food, raft, axe
-	//private String[] supplies;
-	//river, fallen tree
-	//private String[] obstacles;
-
-	/*
-	public RestStop(String label, String[] supplies, String[] obstacles) {
+	/**
+	 * Constructs a RestStop object with specified supplies and obstacles.
+	 * @param label label for the node in the binary search tree
+	 * @param food number of food units to initialize this RestStop object with
+	 * @param rafts number of rafts to initialize this RestStop object with
+	 * @param axes number of axes to initialize this RestStop object with
+	 * @param rivers number of rivers to initialize this RestStop object with
+	 * @param fallenTrees number of fallen trees to initialize this RestStop object with
+	 */
+	public RestStop(String label, int food, int rafts, int axes, 
+			int rivers, int fallenTrees) {
 		this.validateLabel(label);
-		this.validateSupplies(supplies);
-		this.validateObstacles(obstacles);
+		this.validateSuppliesAndObstacles(food, rafts, axes, 
+				rivers, fallenTrees);
 		this.label = label;
-		this.supplies = supplies;
-		this.obstacles = obstacles;
-	}
-	*/
-
-	public RestStop(String label, int food, int rafts, int axes, int rivers, int fallenTrees) {
-		this.validateLabel(label);
-		this.validateSuppliesAndObstacles(food, rafts, axes, rivers, fallenTrees);
-		this.label = label;
-		//FIX?
 		this.food = food;
 		this.rafts = rafts;
 		this.axes = axes;
@@ -40,10 +34,14 @@ public class RestStop implements Comparable<RestStop> {
 		this.fallenTrees = fallenTrees;
 	}
 	
+	/**
+	 * Constructs a RestStop object with specified label.
+	 * Supplies and obstacles are defaulted to zero.
+	 * @param label label for the node in the binary search tree
+	 */
 	public RestStop(String label) {
 		this.validateLabel(label);
 		this.label = label;
-		//FIX?
 		this.food = 0;
 		this.rafts = 0;
 		this.axes = 0;
@@ -51,102 +49,114 @@ public class RestStop implements Comparable<RestStop> {
 		this.fallenTrees = 0;
 	}
 	
+	/**
+	 * Helper method that ensures label contains alphanumeric characters only.
+	 * @param label label for the node in the binary search tree
+	 */
 	private void validateLabel(String label) {
 		if(label.isBlank() || label == null) {
-			System.err.println("Label must comprise of alphanumeric characters.");
-			//Necessary?
+			System.err.println("Label must comprise of"
+					+ " alphanumeric characters.");
 			System.exit(1);
 		}
 		
+		//Iterate through label
 		int parsedChar;
 		for(int i = 0; i < label.length(); i++) {
-			try {
-				parsedChar = (int) label.charAt(i);
-				if(parsedChar < 48 || (parsedChar > 57 && parsedChar < 65) 
-						|| (parsedChar > 90 && parsedChar < 97) 
-						|| parsedChar > 122) {
-					System.err.println("Label must comprise of alphanumeric characters.");
-					//Necessary?
-					System.exit(1);
-				}
-			} catch(Exception e) {
-				System.err.println("Label must comprise of alphanumeric characters.");
-				//Necessary?
+			parsedChar = (int) label.charAt(i);
+			//Ensure each character of label is alphanumeric
+			if(parsedChar < 48 || (parsedChar > 57 && parsedChar < 65) 
+					|| (parsedChar > 90 && parsedChar < 97) 
+					|| parsedChar > 122) {
+				System.err.println("Label must comprise of"
+						+ " alphanumeric characters.");
 				System.exit(1);
 			}
 		}
 	}
 
-	private void validateSuppliesAndObstacles(int food, int rafts, int axes, int rivers, int fallenTrees) {
-		if(food < 0 || rafts < 0 || axes < 0 || rivers < 0 || fallenTrees < 0) {
-			System.err.println("Supplies and obstacles must be greater than or equal to zero.");
-			//Necessary?
+	/**
+	 * Helper method the ensures supplies and obstacles
+	 * are not initialized with invalid values.
+	 * @param food number of food units to initialize this RestStop object with
+	 * @param rafts number of rafts to initialize this RestStop object with
+	 * @param axes number of axes to initialize this RestStop object with
+	 * @param rivers number of rivers to initialize this RestStop object with
+	 * @param fallenTrees number of fallen trees to initialize this RestStop object with
+	 */
+	private void validateSuppliesAndObstacles(int food, int rafts, int axes, 
+			int rivers, int fallenTrees) {
+		if(food < 0 || rafts < 0 || axes < 0 
+				|| rivers < 0 || fallenTrees < 0) {
+			System.err.println("Supplies and obstacles"
+					+ " must be greater than or equal to zero.");
 			System.exit(1);
 		}
 	}
 	
-	/*
-	private void validateSupplies(String[] supplies) {
-		if(supplies == null) {
-			//this.supplies = new String[0];
-			return;
-		}
-		
-		for(int i = 0; i < supplies.length; i++) {
-			if(supplies[i] == null 
-					|| (!supplies[i].equals("food") 
-					&& !supplies[i].equals("raft") 
-					&& !supplies[i].equals("axe"))) {
-				System.err.println("Supplies must either be \"food\", \"raft\", or \"axe\".");
-				//Necessary?
-				System.exit(1);
-			}
-		}
-	}
-	
-	private void validateObstacles(String[] obstacles) {
-		if(obstacles == null) {
-			//this.obstacles = new String[0];
-			return;
-		}
-		
-		for(int i = 0; i < obstacles.length; i++) {
-			if(obstacles[i] == null 
-					|| (!obstacles[i].equals("river") 
-					&& !obstacles[i].equals("fallen tree"))) {
-				System.err.println("Obstacles must either be \"river\" or \"fallen tree\".");
-				//Necessary?
-				System.exit(1);
-			}
-		}
-	}
-	*/
-	
-	
+	/**
+	 * Getter method that returns the label of this RestStop object
+	 * @return label of this RestStop object
+	 */
 	public String getLabel() {
 		return this.label;
 	}
 	
+	/**
+	 * Getter method that returns the number of food units contained
+	 * by this RestStop object.
+	 * @return the number of food units of this RestStop object
+	 */
 	public int getFood() {
 		return this.food;
 	}
 	
+	/**
+	 * Getter method that returns the number of rafts contained
+	 * by this RestStop object
+	 * @return the number of rafts of this RestStop object
+	 */
 	public int getRafts() {
 		return this.rafts;
 	}
 	
+	/**
+	 * Getter method that returns the number of axes contained
+	 * by this RestStop object
+	 * @return the number of axes of this RestStop object
+	 */
 	public int getAxes() {
 		return this.axes;
 	}
 	
+	/**
+	 * Getter method that returns the number of rivers contained
+	 * by this RestStop object
+	 * @return the number of rivers of this RestStop object
+	 */
 	public int getRivers() {
 		return this.rivers;
 	}
 	
+	/**
+	 * Getter method that returns the number of fallen trees contained
+	 * by this RestStop object
+	 * @return the number of fallen trees of this RestStop object
+	 */
 	public int getFallenTrees() {
 		return this.fallenTrees;
 	}
 	
+	/**
+	 * Compares this object's label lexicographically 
+	 * with the specified object's label for order.
+	 * Returns a negative integer, zero, or positive integer
+	 * as this object is less than, equal to, or greater than
+	 * the specified object.
+	 * @param o the object to be compared
+	 * @return a negative integer, zero, or positive integer as this object is 
+	 * lexicographically less than, equal to, or greater than the specified object
+	 */
 	@Override
 	public int compareTo(RestStop o) {
 		return this.label.compareTo(o.label);
