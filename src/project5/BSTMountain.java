@@ -37,6 +37,11 @@ public class BSTMountain < BSTNode extends Comparable<BSTNode> >{
 			System.err.println("Mountain does not contain any rest stops.");
 			System.exit(1);
 		}
+		if(root.data.getFood() <= 0 
+				&& h.getFood() <= 0 
+				&& root.height > 0) {
+			System.exit(0);
+		}
 		findPathsRec(h, root, 0, root.height, 
 				new StringBuffer(root.data.getLabel()));
 	}
