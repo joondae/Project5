@@ -1,26 +1,25 @@
+     
 A
-B
-C
-D
-E
-F
-G
-H
-I
-J
-K
-L
-M
-N
-O
+J food raft food
+E fallen tree
 P
+G food axe river
+B food
+L food food river
+I food fallen tree
+R axe food raft
 Q
-R
-S
-T
-U
-V
-W
-X
-Y
-Z
+N axe
+F
+A
+
+	
+       
+
+
+H
+D axe food
+C
+K
+M
+O
