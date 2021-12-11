@@ -63,7 +63,8 @@ public class MountainHike {
 		//Validate command line argument
 		if(args.length != 1 || args[0] == null) {
 			System.err.println("Usage Error:"
-					+ " the program expects file name as an argument.\n");
+					+ " the program expects file name"
+					+ " as an argument.\n");
 			System.exit(1);
 		}
 		
@@ -119,7 +120,7 @@ public class MountainHike {
 		try {
 			while(br.ready()) {
 				//Split by whitespace
-					//Note that this ignores leading and trailing whitespace
+					//Note this ignores leading and trailing whitespace
 					//\s for space including tabs
 					//+ for multiple occurences
 					//\ for escaping

@@ -66,7 +66,8 @@ public class BSTMountain < BSTNode extends Comparable<BSTNode> >{
 	 * @param soln StringBuffer that logs each node visited and prints if the
 	 * hiker's path leads to the bottom of the mountain
 	 */
-	private void findPathsRec(Hiker h, BSTNode node, int count, int height, StringBuffer soln) {
+	private void findPathsRec(Hiker h, BSTNode node, int count, 
+			int height, StringBuffer soln) {
 		//Reach cliff or run out of food
 		if(h.getFood() < 0 
 				|| (node.left == null 
@@ -78,7 +79,8 @@ public class BSTMountain < BSTNode extends Comparable<BSTNode> >{
 		//Add supplies from RestStop
 		addSupplies(h, node);
 		
-		//Obstacles cannot be overcome with supplies (recently added and accumulated)
+		//Obstacles cannot be overcome with supplies
+		//(recently added and accumulated)
 		if(h.getRafts() < node.data.getRivers() 
 				|| h.getAxes() < node.data.getFallenTrees()) {
 			return;
@@ -97,11 +99,12 @@ public class BSTMountain < BSTNode extends Comparable<BSTNode> >{
 		if(node.left != null) {
 			//Choose left node
 			soln.append(" " + node.left.data.getLabel());
-			//Save previous state of Hiker's supplies before recursing down left node
-			Hiker previousState = new Hiker(h.getFood(), h.getRafts(), h.getAxes());
+			//Save previous state of Hiker's supplies
+			//before recursing down left node
+			Hiker prevState = new Hiker(h.getFood(), h.getRafts(), h.getAxes());
 			findPathsRec(h, node.left, count + 1, height, soln);
 			//After left node is unchosen, reset hiker's state
-			h = previousState;
+			h = prevState;
 			//Unchoose left node in solution log
 			soln.delete(soln.length() - 2, soln.length());
 		}
@@ -110,11 +113,12 @@ public class BSTMountain < BSTNode extends Comparable<BSTNode> >{
 		if(node.right != null) {
 			//Choose right node in solution log
 			soln.append(" " + node.right.data.getLabel());
-			//Save previous state of Hiker's supplies before recursing down right node
-			Hiker previousState = new Hiker(h.getFood(), h.getRafts(), h.getAxes());
+			//Save previous state of Hiker's supplies
+			//before recursing down right node
+			Hiker prevState = new Hiker(h.getFood(), h.getRafts(), h.getAxes());
 			findPathsRec(h, node.right, count + 1, height, soln);
 			//After right node is unchosen, reset hiker's state
-			h = previousState;
+			h = prevState;
 			//Unchoose right node in solution log
 			soln.delete(soln.length() - 2, soln.length());
 		}
