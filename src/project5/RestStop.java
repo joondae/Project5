@@ -54,24 +54,10 @@ public class RestStop implements Comparable<RestStop> {
 	 * @param label label for the node in the binary search tree
 	 */
 	private void validateLabel(String label) {
-		if(label.isBlank() || label == null) {
+		if(label == null || !label.matches("\\w")) {
 			System.err.println("Label must comprise of"
 					+ " alphanumeric characters.");
 			System.exit(1);
-		}
-		
-		//Iterate through label
-		int parsedChar;
-		for(int i = 0; i < label.length(); i++) {
-			parsedChar = (int) label.charAt(i);
-			//Ensure each character of label is alphanumeric
-			if(parsedChar < 48 || (parsedChar > 57 && parsedChar < 65) 
-					|| (parsedChar > 90 && parsedChar < 97) 
-					|| parsedChar > 122) {
-				System.err.println("Label must comprise of"
-						+ " alphanumeric characters.");
-				System.exit(1);
-			}
 		}
 	}
 
