@@ -119,13 +119,17 @@ public class MountainHike {
 		//Process label, supplies, and obstacles
 		try {
 			while(br.ready()) {
+				String s = br.readLine();
+				//Ignore empty lines
+				if(s.isEmpty()) continue;
+				
 				//Split by whitespace
 					//Note this ignores leading and trailing whitespace
 					//\s for space including tabs
-					//+ for multiple occurences
+					//+ for multiple occurrences
 					//\ for escaping
-				String[] arr = br.readLine().split("\\s+");
-				//Prevent IndexOutOfBoundsException and ignore blank lines
+				String[] arr = s.split("\\s+");
+				//Prevent IndexOutOfBoundsException or skip blank line
 				if(arr.length > 0) {
 					//Process label
 					String label = processLabel(arr);
@@ -138,6 +142,7 @@ public class MountainHike {
 						continue;
 					}
 					
+					//Process supplies and obstacles
 					processSuppliesAndObstacles(arr, label, m);
 				}
 				
@@ -169,7 +174,8 @@ public class MountainHike {
 	 * @return a valid label, if applicable
 	 */
 	private String processLabel(String[] arr) {
-		//Second condition checks if label contains non-alphanumeric characters
+		//If label is null 
+		//or doesn't contain strictly alphanumeric characters
 		if(arr[0] == null || !arr[0].matches("\\w")) {
 			System.err.println("Label must be alphanumeric.");
 			System.exit(1);
