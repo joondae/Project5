@@ -5,7 +5,7 @@ package project5;
  * It keeps track of all the supplies the hiker has and
  * updates such information as the hiker traverses the mountain and
  * consumes supplies.
- * @author Max
+ * @author Max Hahn
  */
 public class Hiker {
 	private int food, rafts, axes;
